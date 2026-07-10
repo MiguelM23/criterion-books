@@ -4,6 +4,7 @@ import {getCollection, render} from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import {SHOW_BUY_BUTTON} from "astro:env/server";
 import AmazonLogo from "../../components/AmazonLogo.astro";
+import BookScore from "../../components/BookScore.astro";
 
 export async function getStaticPaths(){
     const books = await getCollection("books");
@@ -20,16 +21,34 @@ const {data, id} = book
 const {title, author, img, readtime, description, buy} = data
 
 const {Content} = await render(book)
+export const prerender = true
 ---
 
 <Layout title={`${title} - Criterion Books`}>
     <div class="flex gap-12 pt-12 px-4 items-start max-w-7xl mx-auto justify-center">
     <aside class="flex flex-col items-center gap-4 sticky top-16">
-        <a href="/" class="hover:underline opacity-70">⬅️ Volver atrás</a>
+
+        <a href="/" class="inline-flex items-center gap-1 text-gray-600 hover:text-black no-underline">
+            <svg xmlns="http://www.w3.org/2000/svg" 
+            class="h-4 w-4" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            stroke-width="2" 
+            stroke-linecap="round" 
+            stroke-linejoin="round">
+                <path d="M19 12H5" />
+                <path d="M12 19l-7-7 7-7" />
+            </svg>
+            Volver atrás
+        </a>
         <img transition:name={`img-${id}`}class="rounded w-72 h-auto" src={img} alt={title} />
+        <BookScore server:defer id={id} >
+            <span slot="fallback" class="text-xs opacity-70">Cargando puntuacion...</span>
+        </BookScore>
         {
             SHOW_BUY_BUTTON && (
-                <a href={buy.colombia} 
+                <a href={buy.usa} 
                     target="_blank"
                     rel="noopener noreferrer" 
                     class="inline-flex items-center gap-2 bg-yellow-400

@@ -3,7 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
 const books = await getCollection('books');
-console.log(books);
+
+export const prerender = true;
 
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
@@ -41,7 +42,7 @@ console.log(books);
 										</h2>
 
 										<p class="mb-4 text-black max-w-sm">{description}</p>
-										<span class="text-xs text-gray-700">⏳ Lectura en {readtime} minutos</span>
+										<span class="text-xs text-gray-800">⏳ Lectura en {readtime} minutos</span>
 									</div>
 								</article>
 							)

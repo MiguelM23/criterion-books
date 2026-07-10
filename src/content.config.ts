@@ -12,8 +12,8 @@ const books = defineCollection({
         readtime: z.number(),
         description: z.string(),
         buy: z.object({
-            colombia: z.string().url(),
-            argentina: z.string().url(),
+            usa: z.string().url(),
+            mex: z.string().url(),
         }),
     })
 });

@@ -9,6 +9,7 @@ import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
+  output: 'server',
   env: {
     schema: {
       SHOW_BUY_BUTTON: envField.boolean({context: 'server', access: 'public', default: true}),
